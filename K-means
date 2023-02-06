@@ -1,0 +1,74 @@
+#include<stdio.h>
+#include<math.h>
+#include<stdlib.h>
+float mean1(float a[],float n){
+    float s=0;
+    for(int i=0;i<n;i++){
+        s=s+a[i];
+    }
+    return s/n;
+}
+
+void main(){
+    float a[100],b[100][100],n,k,d1,d2,m11,m22;
+    int t,j1,k1;
+    printf("enter no. of elements type");
+    scanf("%d",&t);
+    printf("enter no. of elements");
+    scanf("%f",&n);
+    printf("enter no. of clusters to be formed");
+    scanf("%f",&k);
+    printf("enter data");
+    switch(t){
+        case 1:for(int i=0;i<n;i++){
+            scanf("%f",&a[i]);
+        }
+        float c1[100],c2[100],m1,m2;
+        int k,j;
+        for(int i=0;i<n;i++){
+            c1[i]=0;
+            c2[i]=0;
+        }
+        m1=a[0];
+        m2=a[1];
+        do{
+            int j=0,k=0;
+        for(int i=0;i<n;i++){
+            d1=abs(m1-a[i]);
+            d2=abs(m2-a[i]);
+            if(d1<d2){
+                c1[j]=a[i];
+                j++;
+            }
+            else{
+                c2[k]=a[i];
+                k++;
+            }
+        }
+        m11=m1;
+        m22=m2;
+        m1=mean1(c1,j+1);
+        m2=mean1(c2,k+1);
+        j1=j;
+        k1=k;
+        }while(m11!=m1 && m22!=m2);
+        for(int i=0;i<j1;i++){
+            printf("%f ",c1[i]);
+        }
+        printf("\n");
+        for(int i=0;i<k1;i++){
+            printf("%f ",c2[i]);
+        }
+        printf("\n");
+       
+    }
+}
+
+
+output:
+enter no. of elements type1
+enter no. of elements9
+enter no. of clusters to be formed2
+enter data2 3 4 10 11 12 20 25 30
+2.000000 3.000000 4.000000 10.000000 11.000000 12.000000
+20.000000 25.000000 30.000000 
