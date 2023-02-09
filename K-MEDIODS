@@ -1,0 +1,98 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<math.h>
+#include<limits.h>
+void main(){
+    int a[100][100];//={{2,6},{3,4},{3,8},{4,7},{6,2},{6,4},{7,3},{7,4},{8,5},{7,6}};
+    int n,tc[50][50],d1,d2,min=INT_MAX,p1,p2;
+    printf("enter no. of data points");
+    scanf("%d",&n);
+    printf("enter data points");
+   
+    for(int i=0;i<n;i++){
+        for(int j=0;j<2;j++){
+            scanf("%d",&a[i][j]);
+        }
+    }
+   
+    for(int i=0;i<n;i++)
+    {
+        for(int j=i+1;j<n;j++)
+        {
+            int t=0;
+            for(int p=0;p<n;p++)
+            {
+                d1=abs(a[i][0]-a[p][0])+abs(a[i][1]-a[p][1]);
+                d2=abs(a[j][0]-a[p][0])+abs(a[j][1]-a[p][1]);
+                if(d1<d2)
+                {
+                    t=t+d1;
+                }
+                else
+                {
+                    t=t+d2;
+                }
+            }
+            tc[i][j]=t;
+            if(t<min && t!=0)
+            {
+                min=t;
+                p1=i;
+                p2=j;
+            }
+        }
+    }
+    //printf("%d %d",p1,p2);   for the point which has minimum cost
+    /**for(int i=0;i<n;i++){
+        for(j=0;j<n;j++){              
+            printf("%d ",tc[i][j]);     to print all the cost values which are present in tc matrix
+        }
+        printf("\n");
+    }
+    **/
+    int c1[50][50],c2[50][50],c11=0,c22=0;
+    for(int i=0;i<n;i++)
+    {
+        d1=abs(a[p1][0]-a[i][0])+abs(a[p1][1]-a[i][1]);
+        d2=abs(a[p2][0]-a[i][0])+abs(a[p2][1]-a[i][1]);
+        if(d1<d2)
+        {
+            c1[c11][0]=a[i][0];
+            c1[c11][1]=a[i][1];
+            c11++;
+        }
+        else
+        {
+            c2[c22][0]=a[i][0];
+            c2[c22][1]=a[i][1];
+            c22++;
+        }
+    }
+    printf("1st cluster\n");
+    for(int i=0;i<c11;i++){
+        printf("(%d,%d) ",c1[i][0],c1[i][1]);
+    }
+    printf("\n2nd cluster\n");
+    for(int i=0;i<c22;i++){
+        printf("(%d,%d) ",c2[i][0],c2[i][1]);
+    }    
+   
+}
+
+OUTPUT:
+enter no. of data points10
+enter data points
+2 6
+3 4
+3 8
+4 7
+6 2
+6 4
+7 3
+7 4
+8 5
+7 6
+1st cluster
+(2,6) (3,4) (3,8) (4,7)
+2nd cluster
+(6,2) (6,4) (7,3) (7,4) (8,5) (7,6)
